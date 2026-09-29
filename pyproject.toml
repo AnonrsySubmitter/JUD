@@ -1,0 +1,24 @@
+[project]
+name = "jud-experiments"
+version = "0.1.0"
+description = "Synthetic, CIFAR-10 and Sudoku experiments for Jumping Up and Down"
+requires-python = ">=3.14"
+dependencies = [
+    "click>=8.1",
+    "matplotlib>=3.9",
+    "ml-collections>=1.0",
+    "numpy>=2.0",
+    "pillow>=11",
+    "psutil>=7",
+    "pyyaml>=6",
+    "requests>=2.32",
+    "scipy>=1.15",
+    "torch>=2.7",
+    "tqdm>=4.67",
+]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120

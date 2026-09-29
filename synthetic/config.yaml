@@ -1,0 +1,41 @@
+data:
+  S: 50               # overwritten per-dataset at runtime
+  dim: 1
+  T0: 0.0
+  T: 1.0
+  condition_dim: 0
+  N: 20000
+  shuffle: true
+  R_max: 20.0         # terminal Poisson noise rate for UpDownNdNoise
+  Rd_power: 1.0       # Rd(t) = (1 - frac(t))^Rd_power
+  Ru_power: 1.0       # Ru(t) = R_max * frac(t)^Ru_power
+
+model:
+  num_layers: 3
+  d_model: 128
+  hidden_dim: 256
+  temb_dim: 128
+  time_scale_factor: 100
+  ema_decay: 0.999
+  edm_scaling: true   # EDM (Karras et al.) preconditioning for BinomialDenoiser/ZDenoiser
+                       # m_theta(x,t) = cskip(t)*x + cout(t)*net_theta(cin(t)*x+ssin, t).
+                       # Requires the model's configure_edm(...) to be called before training/sampling.
+
+training:
+  batch_size: 256
+  lr: 0.0002
+  weight_decay: 0.0
+  n_epochs: 300
+  val_frac: 0.0       # fraction of data.N held out for validation (0 = train on everything,
+                       # no held-out set); see train_paths.py --val-frac
+  clip_grad: true
+  use_loss_weighting: false
+  loss_weight_power: 0.0
+  loss_weight_floor: 0.001
+
+sampling:
+  num_samples: 1000
+  num_steps: 2000
+  ode_solver: euler    # 'tau_leaping' or 'euler'; see train_paths.py --sampler
+  corrector_rate: 0.0     # magnitude a(t) of the measure-preserving corrector (0 disables it)
+  corrector_psi: sqrt     # 'sqrt' or 'frac', see sampling.birth_death_corrector_rates

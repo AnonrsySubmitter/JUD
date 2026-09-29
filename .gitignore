@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.DS_Store
+data/
+outputs/
+results/
+runs/
+*.pkl
+*.pt
+*.ckpt
